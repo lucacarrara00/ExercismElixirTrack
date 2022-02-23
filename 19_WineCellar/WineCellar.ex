@@ -16,13 +16,17 @@ defmodule WineCellar do
   end
 
   # The functions below do not need to be modified.
-  defp has_key?(wines, opts, key) do
-    if Keyword.has_key?(opts, key) do
-      if key == :year do
-        filter_by_year(wines, opts[key])
-      else
-        filter_by_country(wines, opts[key])
-      end
+  defp has_key?(wines, opts, :year) do
+    if Keyword.has_key?(opts, :year) do
+      filter_by_year(wines, opts[:year])
+    else
+      wines
+    end
+  end
+
+  defp has_key?(wines, opts, :country) do
+    if Keyword.has_key?(opts, :country) do
+      filter_by_country(wines, opts[:country])
     else
       wines
     end
