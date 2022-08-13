@@ -22,12 +22,11 @@ defmodule Newsletter do
     emails_path
     |> read_emails()
     |> Enum.each(fn email ->
-      if email |> send_fun.() == :ok do
+      with :ok <- email |> send_fun.() do
         pid |> log_sent_email(email)
       end
     end)
-    |> then(fn _ ->
-      pid |> close_log()
-    end)
+
+    pid |> close_log()
   end
 end
